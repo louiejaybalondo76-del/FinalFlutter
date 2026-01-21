@@ -3,8 +3,6 @@ import 'package:e_commerce/screen/message_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
-
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
@@ -27,7 +25,7 @@ class CartScreen extends StatelessWidget {
             icon: Icon(Icons.message_outlined),
           ),
         ],
-        backgroundColor: Colors.deepOrangeAccent,
+        backgroundColor: Colors.black,
         foregroundColor: Colors.white,
       ),
       body: items.isEmpty
@@ -38,17 +36,6 @@ class CartScreen extends StatelessWidget {
                 final item = items[index];
                 final product = item.product;
 
-                // return ListTile(
-                //   title: Text(product.name),
-                //   subtitle: Text(
-                //     '₱${product.price.toStringAsFixed(2)} x ${item.quantity}',
-                //   ),
-                //   trailing: IconButton(
-                //     onPressed: () => cart.removeFromCart(product.id),
-                //     icon: Icon(Icons.remove_circle),
-                //   ),
-                // );
-
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Column(
@@ -56,19 +43,6 @@ class CartScreen extends StatelessWidget {
                       SizedBox(height: 10),
                       Container(
                         decoration: BoxDecoration(
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //     color: Colors.black.withOpacity(
-                          //       0.2,
-                          //     ), // shadow color with opacity
-                          //     spreadRadius: 2, // how wide the shadow spreads
-                          //     blurRadius: 8, // softness of the shadow
-                          //     offset: Offset(
-                          //       2,
-                          //       4,
-                          //     ), // position of the shadow (x, y)
-                          //   ),
-                          // ],
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -117,7 +91,7 @@ class CartScreen extends StatelessWidget {
 
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(16),
-        color: Colors.deepOrangeAccent,
+        color: Colors.black,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -151,14 +125,6 @@ class CartScreen extends StatelessWidget {
           ],
         ),
       ),
-
-      // Padding(
-      //   padding: EdgeInsets.all(16.0),
-      //   child: Text(
-      //     'Total: ₱${cart.totalPrice.toStringAsFixed(2)}',
-      //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      //   ),
-      // ),
     );
   }
 }

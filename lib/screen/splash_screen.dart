@@ -22,11 +22,11 @@ class _SplashScreenState extends State<SplashScreen>
       duration: const Duration(milliseconds: 1000),
     );
 
-    _opacityAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
+    _opacityAnimation = Tween<double>(
+      begin: 1.0,
+      end: 0.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
-    // Simulate loading for 2 seconds
     Timer(const Duration(seconds: 2), () {
       _controller.forward(); // Start fade out
       Future.delayed(const Duration(milliseconds: 1000), () {
@@ -53,11 +53,7 @@ class _SplashScreenState extends State<SplashScreen>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(
-                'assets/icon/app_icon.png',
-                width: 150,
-                height: 150,
-              ),
+              Image.asset('adidaslogo.png', width: 150, height: 150),
               const SizedBox(height: 20),
               const Text(
                 "Loading School Inventory System...",

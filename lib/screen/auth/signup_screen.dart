@@ -1,8 +1,6 @@
 import 'package:e_commerce/screen/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
-
-
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -29,7 +27,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          //backgroundColor: Colors.red,
           content: Row(
             children: [
               Icon(Icons.warning, color: Colors.white),
@@ -59,9 +56,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   "Let's create an account for you",
                   style: TextStyle(fontSize: 15),
                 ),
-            
+
                 const SizedBox(height: 30),
-            
+
                 TextField(
                   controller: _usernameController,
                   decoration: InputDecoration(
@@ -82,9 +79,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                 ),
-            
+
                 const SizedBox(height: 12),
-            
+
                 TextField(
                   controller: _passwordController,
                   obscureText: true,
@@ -106,9 +103,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                 ),
-            
+
                 const SizedBox(height: 12),
-            
+
                 TextField(
                   controller: _passwordController,
                   obscureText: true,
@@ -130,9 +127,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                 ),
-            
+
                 const SizedBox(height: 20),
-            
+
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -154,13 +151,13 @@ class _SignupScreenState extends State<SignupScreen> {
                         : Text('Sign Up', style: TextStyle(fontSize: 15)),
                   ),
                 ),
-            
+
                 // if (_errorMessage.isNotEmpty) ...[
                 //   const SizedBox(height: 10),
                 //   Text(_errorMessage, style: TextStyle(color: Colors.red)),
                 // ],
                 const SizedBox(height: 25),
-            
+
                 GestureDetector(
                   onTap: () {
                     Navigator.push(

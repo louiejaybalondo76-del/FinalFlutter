@@ -7,7 +7,7 @@ class MessageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepOrangeAccent,
+        backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         title: Text('Message'),
       ),

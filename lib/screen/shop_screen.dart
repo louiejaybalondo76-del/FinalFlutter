@@ -5,14 +5,34 @@ import 'package:e_commerce/screen/message_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class ShopScreen extends StatelessWidget {
   ShopScreen({super.key});
 
   final List<Product> products = [
-    Product(id: '1', name: 'Bag', price: 500, image: 'assets/bag.jpg'),
-    Product(id: '2', name: 'Shoes', price: 1000, image: 'assets/shoes.jpg'),
-    Product(id: '3', name: 'Watch', price: 5000, image: 'assets/watch.jpg'),
+    Product(
+      id: '1',
+      name: 'Red Shoes Adidas',
+      price: 4999,
+      image: 'assets/img1.png',
+    ),
+    Product(
+      id: '2',
+      name: 'Black Shoes Adidas',
+      price: 999,
+      image: 'assets/img2.png',
+    ),
+    Product(
+      id: '3',
+      name: 'White Shoes Adidas',
+      price: 4999,
+      image: 'assets/img3.png',
+    ),
+    Product(
+      id: '4',
+      name: 'Purple Shoes Adidas',
+      price: 4999,
+      image: 'assets/img4.png',
+    ),
   ];
 
   @override
@@ -21,7 +41,7 @@ class ShopScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.deepOrangeAccent,
+        backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         title: Padding(
           padding: const EdgeInsets.only(bottom: 8),
@@ -30,7 +50,7 @@ class ShopScreen extends StatelessWidget {
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search...',
-                contentPadding: EdgeInsets.symmetric(
+                contentPadding: const EdgeInsets.symmetric(
                   vertical: 8,
                   horizontal: 12,
                 ),
@@ -54,23 +74,23 @@ class ShopScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (_) => CartScreen()),
                   );
                 },
-                icon: Icon(Icons.shopping_cart_outlined),
+                icon: const Icon(Icons.shopping_cart_outlined),
               ),
-
               if (cart.itemCount > 0)
                 Positioned(
+                  right: 8,
+                  top: 8,
                   child: CircleAvatar(
                     radius: 10,
                     backgroundColor: Colors.white,
                     child: Text(
                       '${cart.itemCount}',
-                      style: TextStyle(color: Colors.red, fontSize: 12),
+                      style: const TextStyle(color: Colors.red, fontSize: 12),
                     ),
                   ),
                 ),
             ],
           ),
-
           IconButton(
             onPressed: () {
               Navigator.push(
@@ -78,80 +98,71 @@ class ShopScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => MessageScreen()),
               );
             },
-            icon: Icon(Icons.message_outlined),
+            icon: const Icon(Icons.message_outlined),
           ),
         ],
       ),
-
-      // body: ListView.builder(
-      //   padding: EdgeInsets.all(10),
-      //   itemCount: products.length,
-      //   itemBuilder: (context, index) {
-      //     final product = products[index];
-      //     return Card(
-      //       child: ListTile(
-      //         leading: Image.asset(product.image, width: 100),
-      //         title: Text(product.name),
-      //         subtitle: Text('₱${product.price.toStringAsFixed(2)}'),
-      //         trailing: ElevatedButton(
-      //           style: ElevatedButton.styleFrom(
-      //             //side: BorderSide(color: Colors.deepPurpleAccent),
-      //             backgroundColor: Colors.deepPurpleAccent,
-      //             foregroundColor: Colors.white,
-      //           ),
-      //           onPressed: () {
-      //             cart.addToCart(product);
-      //             ScaffoldMessenger.of(context).showSnackBar(
-      //               SnackBar(content: Text('${product.name} added to cart')),
-      //             );
-      //           },
-
-      //           child: Text('Add'),
-      //         ),
-      //       ),
-      //     );
-      //   },
-      // ),
       body: GridView.builder(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         itemCount: products.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: .9,
+          childAspectRatio:
+              .85, // In-adjust ko para magkasya ang shadow at button
         ),
         itemBuilder: (context, index) {
           final product = products[index];
-          return Card(
-            //surfaceTintColor: Colors.black45,
-            color: Colors.white,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadiusGeometry.circular(12),
+
+          // DITO ANG IMAGE CARD NA MAY BORDER SHADOW
+          return Container(
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.50),
+                  spreadRadius: 2,
+                  blurRadius: 8,
+                  offset: const Offset(0, 4), // Shadow sa ilalim
+                ),
+              ],
             ),
             child: Column(
               children: [
                 Expanded(
-                  child: Image.asset(product.image, fit: BoxFit.contain),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(product.image, fit: BoxFit.contain),
+                  ),
                 ),
                 Text(
                   product.name,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
                 Text('₱${product.price.toStringAsFixed(2)}'),
                 Padding(
-                  padding: EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.only(bottom: 10, top: 5),
                   child: ElevatedButton(
                     onPressed: () {
                       cart.addToCart(product);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          backgroundColor: Colors.blueGrey,
+                          backgroundColor: const Color.fromARGB(
+                            239,
+                            0,
+                            170,
+                            255,
+                          ),
                           content: Text('${product.name} added to cart'),
-                          duration: Duration(milliseconds: 700),
+                          duration: const Duration(milliseconds: 700),
                         ),
                       );
                     },
-                    child: Text('Add to Cart'),
+                    child: const Text('Add to Cart'),
                   ),
                 ),
               ],

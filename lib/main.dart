@@ -3,15 +3,12 @@ import 'package:e_commerce/screen/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 void main() {
-  
   runApp(
     ChangeNotifierProvider(
       create: (_) => CartProvider(),
       child: const MainApp(),
     ),
-    //const MainApp()
   );
 }
 
@@ -23,18 +20,8 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Add to Cart App',
-      theme: ThemeData(
-        useMaterial3: true,
-        //primarySwatch: Colors.orange
-        primaryColor: Colors.deepOrangeAccent
-        //colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange).copyWith(secondary: Colors.deepOrangeAccent)
-        ),
+      theme: ThemeData(useMaterial3: true, primaryColor: Colors.black),
       home: LoginScreen(),
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (context) => SplashScreen(),
-      //   '/home': (context) => HomeScreen()
-      // },
     );
   }
 }

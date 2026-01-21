@@ -5,28 +5,50 @@ import 'package:e_commerce/screen/message_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class ShopScreen extends StatelessWidget {
   ShopScreen({super.key});
 
   final List<Product> products = [
-    Product(id: '1', name: 'Bag', price: 500, image: 'assets/bag.jpg'),
-    Product(id: '2', name: 'Shoes', price: 1000, image: 'assets/shoes.jpg'),
-    Product(id: '3', name: 'Watch', price: 5000, image: 'assets/watch.jpg'),
+    Product(
+      id: '1',
+      name: 'Red Shoes Adidas',
+      price: 4999,
+      image: 'assets/img1.png',
+    ),
+    Product(
+      id: '2',
+      name: 'Black Shoes Adidas',
+      price: 999,
+      image: 'assets/img2.png',
+    ),
+    Product(
+      id: '3',
+      name: 'White Shoes Adidas',
+      price: 4999,
+      image: 'assets/img3.png',
+    ),
+    Product(
+      id: '4',
+      name: 'Purple Shoes Adidas',
+      price: 4999,
+      image: 'assets/img4.png',
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.deepPurpleAccent,
+        backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         title: Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: SizedBox(
             height: 40,
+
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search...',
@@ -94,8 +116,7 @@ class ShopScreen extends StatelessWidget {
               subtitle: Text('₱${product.price.toStringAsFixed(2)}'),
               trailing: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  //side: BorderSide(color: Colors.deepPurpleAccent),
-                  backgroundColor: Colors.deepPurpleAccent,
+                  backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () {
@@ -105,10 +126,6 @@ class ShopScreen extends StatelessWidget {
                   );
                 },
 
-                // child: Column(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [Icon(Icons.shopping_cart), Text('Add')],
-                // ),
                 child: Text('Add'),
               ),
             ),
@@ -118,4 +135,3 @@ class ShopScreen extends StatelessWidget {
     );
   }
 }
-

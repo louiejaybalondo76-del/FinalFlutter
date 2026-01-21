@@ -1,17 +1,15 @@
 import 'package:e_commerce/screen/message_screen.dart';
 import 'package:flutter/material.dart';
 
-
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    //final cart = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        backgroundColor: Colors.deepOrangeAccent,
+        backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         title: Text('Account Settings'),
         actions: [
