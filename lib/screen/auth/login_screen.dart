@@ -15,7 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   bool _isLoading = false;
 
-  // Default admin credentials
+ 
   final String adminUser = 'admin';
   final String adminPass = '123';
 
@@ -24,24 +24,24 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = true;
     });
 
-    // Kunin ang data mula sa local storage na sinave ng Signup Screen
+    
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? savedUser = prefs.getString('saved_username');
     final String? savedPass = prefs.getString('saved_password');
 
-    // Konting delay para sa loading effect
+    
     await Future.delayed(const Duration(seconds: 2));
 
     String inputUser = _usernameController.text;
     String inputPass = _passwordController.text;
 
-    // Check kung match sa Signup data O sa Default admin data
+    
     bool isAuthorized = (inputUser == savedUser && inputPass == savedPass) || 
                         (inputUser == adminUser && inputPass == adminPass);
 
     if (isAuthorized) {
       if (mounted) {
-        Navigator.pushReplacement( // Ginamit ang pushReplacement para hindi na makabalik sa login
+        Navigator.pushReplacement( 
           context,
           MaterialPageRoute(builder: (context) => const BottomNavBar()),
         );
@@ -83,7 +83,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Text('Welcome back, please sign in..'),
                 const SizedBox(height: 30),
                 
-                // Username Field
                 _buildTextField(
                   controller: _usernameController,
                   label: 'Username',
@@ -92,7 +91,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 12),
                 
-                // Password Field
                 _buildTextField(
                   controller: _passwordController,
                   label: 'Password',
@@ -102,7 +100,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 20),
 
-                // Sign In Button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -154,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // Helper method para sa TextField para hindi paulit-ulit ang code
+ 
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,

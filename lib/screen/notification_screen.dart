@@ -19,9 +19,8 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Kinukuha ang notifications mula sa Provider
     final cart = Provider.of<CartProvider>(context);
-    final notifications = cart.notifications; // Eto na yung dynamic list
+    final notifications = cart.notifications;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -35,7 +34,6 @@ class NotificationScreen extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1.5),
         ),
         actions: [
-          // Shopping Bag Icon with Badge
           Stack(
             children: [
               IconButton(

@@ -8,12 +8,9 @@ class MessageScreen extends StatefulWidget {
 }
 
 class _MessageScreenState extends State<MessageScreen> {
-  // Controller para sa text input
   final TextEditingController _messageController = TextEditingController();
-  // ScrollController para kusa itong bababa pag may bagong message
   final ScrollController _scrollController = ScrollController();
 
-  // Listahan ng mga messages
   final List<Map<String, dynamic>> _messages = [
     {
       "text": "Hello! How can we help you today?",
@@ -22,7 +19,6 @@ class _MessageScreenState extends State<MessageScreen> {
     },
   ];
 
-  // Function para makuha ang current time
   String _getCurrentTime() {
     final now = DateTime.now();
     final String hour = now.hour > 12 ? (now.hour - 12).toString() : now.hour.toString();
@@ -31,7 +27,6 @@ class _MessageScreenState extends State<MessageScreen> {
     return "$hour:$minute $ampm";
   }
 
-  // Logic para sa Smart Auto-Reply
   String _getAutoResponse(String userText) {
     String input = userText.toLowerCase();
     if (input.contains("available") || input.contains("stock")) {
@@ -45,7 +40,6 @@ class _MessageScreenState extends State<MessageScreen> {
     }
   }
 
-  // Function para mag-send ng message
   void _sendMessage() {
     if (_messageController.text.trim().isEmpty) return;
 
@@ -62,7 +56,6 @@ class _MessageScreenState extends State<MessageScreen> {
     _messageController.clear();
     _scrollToBottom();
 
-    // Auto-Reply pagkalipas ng 1.5 seconds
     Future.delayed(const Duration(milliseconds: 1500), () {
       if (mounted) {
         setState(() {
@@ -77,7 +70,6 @@ class _MessageScreenState extends State<MessageScreen> {
     });
   }
 
-  // Function para laging nasa baba ang scroll pag may bagong message
   void _scrollToBottom() {
     Future.delayed(const Duration(milliseconds: 100), () {
       if (_scrollController.hasClients) {
@@ -105,7 +97,6 @@ class _MessageScreenState extends State<MessageScreen> {
       ),
       body: Column(
         children: [
-          // Chat Messages List
           Expanded(
             child: ListView.builder(
               controller: _scrollController,
@@ -122,7 +113,6 @@ class _MessageScreenState extends State<MessageScreen> {
             ),
           ),
 
-          // Message Input Field
           Container(
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(

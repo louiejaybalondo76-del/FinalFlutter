@@ -13,7 +13,6 @@ class ShopScreen extends StatefulWidget {
 }
 
 class _ShopScreenState extends State<ShopScreen> {
-  // 1. Master List ng mga products
   final List<Product> allProducts = [
     Product(id: '1', name: 'Red Shoes Adidas', price: 4999, image: 'assets/img1.png'),
     Product(id: '2', name: 'Black Shoes Adidas', price: 999, image: 'assets/img2.png'),
@@ -21,21 +20,18 @@ class _ShopScreenState extends State<ShopScreen> {
     Product(id: '4', name: 'Purple Shoes Adidas', price: 4999, image: 'assets/img4.png'),
   ];
 
-  // 2. Displayed List na mag-uupdate habang nagta-type (image_7f1134.png)
   List<Product> displayedProducts = [];
 
   @override
   void initState() {
     super.initState();
-    // Mahalaga: I-set ang initial value para sa displayed list
     displayedProducts = allProducts;
   }
 
-  // 3. Search logic para sa filtering (image_7e9c38.jpg)
   void _runSearch(String enteredKeyword) {
     List<Product> results = [];
     if (enteredKeyword.isEmpty) {
-      results = allProducts; // Ibalik sa lahat kung walang tinype
+      results = allProducts;
     } else {
       results = allProducts
           .where((product) =>
@@ -44,7 +40,7 @@ class _ShopScreenState extends State<ShopScreen> {
     }
 
     setState(() {
-      displayedProducts = results; // I-refresh ang UI
+      displayedProducts = results;
     });
   }
 
@@ -62,7 +58,7 @@ class _ShopScreenState extends State<ShopScreen> {
           child: SizedBox(
             height: 40,
             child: TextField(
-              onChanged: (value) => _runSearch(value), // Live search trigger
+              onChanged: (value) => _runSearch(value),
               style: const TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 hintText: 'Search...',
@@ -108,7 +104,7 @@ class _ShopScreenState extends State<ShopScreen> {
           ? const Center(child: Text('No products found.', style: TextStyle(fontSize: 18, color: Colors.grey)))
           : GridView.builder(
               padding: const EdgeInsets.all(12),
-              itemCount: displayedProducts.length, // Siguraduhing ito ay displayedProducts
+              itemCount: displayedProducts.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: .85,

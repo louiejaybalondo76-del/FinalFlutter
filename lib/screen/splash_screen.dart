@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen>
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     Timer(const Duration(seconds: 2), () {
-      _controller.forward(); // Start fade out
+      _controller.forward();
       Future.delayed(const Duration(milliseconds: 1000), () {
         if (mounted) {
           Navigator.pushReplacementNamed(context, '/home');

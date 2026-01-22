@@ -13,7 +13,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // Master list ng sapatos
   final List<Product> allProducts = [
     Product(id: '1', name: 'Red Shoes Adidas', price: 4999, image: 'assets/img1.png'),
     Product(id: '2', name: 'Black Shoes Adidas', price: 999, image: 'assets/img2.png'),
@@ -21,17 +20,14 @@ class _HomeScreenState extends State<HomeScreen> {
     Product(id: '4', name: 'Purple Shoes Adidas', price: 4999, image: 'assets/img4.png'),
   ];
 
-  // Listahan na magbabago habang nagse-search
   List<Product> displayedProducts = [];
 
   @override
   void initState() {
     super.initState();
-    // Sa simula, ipakita lahat
     displayedProducts = allProducts;
   }
 
-  // Logic para sa pag-filter
   void _updateSearch(String query) {
     setState(() {
       displayedProducts = allProducts
@@ -55,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: SizedBox(
             height: 40,
             child: TextField(
-              onChanged: _updateSearch, // Dito pinapagana ang search
+              onChanged: _updateSearch,
               style: const TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 hintText: 'Search...',
@@ -119,7 +115,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 50),
             
-            // GridView builder gamit ang filtered list
             displayedProducts.isEmpty
                 ? const Center(child: Text("No products found."))
                 : GridView.builder(

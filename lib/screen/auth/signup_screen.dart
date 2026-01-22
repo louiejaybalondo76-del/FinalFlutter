@@ -1,6 +1,6 @@
 import 'package:e_commerce/screen/auth/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // Import para sa storage
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -16,13 +16,11 @@ class _SignupScreenState extends State<SignupScreen> {
   bool _isLoading = false;
 
   void signup() async {
-    // 1. Validation: Check kung may blanko
     if (_usernameController.text.isEmpty || _passwordController.text.isEmpty) {
       _showErrorSnackBar('Please fill in all fields');
       return;
     }
 
-    // 2. Validation: Check kung match ang passwords
     if (_passwordController.text != _confirmPasswordController.text) {
       _showErrorSnackBar('Passwords do not match');
       return;
@@ -32,12 +30,11 @@ class _SignupScreenState extends State<SignupScreen> {
       _isLoading = true;
     });
 
-    // --- DITO NATIN I-SASHAVE ANG ACCOUNT MO ---
+    // --- DITO NATIN I-SASAVE ANG ACCOUNT MO ---
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('saved_username', _usernameController.text);
     await prefs.setString('saved_password', _passwordController.text);
 
-    // Simulasyon ng network request delay
     await Future.delayed(const Duration(seconds: 2));
 
     if (mounted) {
@@ -45,7 +42,6 @@ class _SignupScreenState extends State<SignupScreen> {
         _isLoading = false;
       });
 
-      // 3. Success Logic
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Account created successfully! Please Sign In.'),
@@ -53,7 +49,7 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       );
 
-      // Babalik sa Login Screen gamit ang pop o pushReplacement
+      // Babalik sa Login Screen
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const LoginScreen()),
@@ -61,7 +57,6 @@ class _SignupScreenState extends State<SignupScreen> {
     }
   }
 
-  // Helper function para sa SnackBar error
   void _showErrorSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

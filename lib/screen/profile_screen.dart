@@ -98,8 +98,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const Text("user.example@email.com", style: TextStyle(color: Colors.grey, fontSize: 13)),
 
             const SizedBox(height: 30),
-
-            // Dashboard Section (image_7f0592.png)
             _buildDashboardCard(
               title: "My Purchases",
               items: [
@@ -212,7 +210,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Text(label, style: const TextStyle(fontSize: 11)),
         if (sub != null)
           Padding(
-            // FIXED PADDING SYNTAX HERE (image_7efdf8.png)
             padding: const EdgeInsets.only(top: 2), 
             child: Text(sub, style: const TextStyle(fontSize: 10, color: Colors.blue, fontWeight: FontWeight.bold)),
           ),

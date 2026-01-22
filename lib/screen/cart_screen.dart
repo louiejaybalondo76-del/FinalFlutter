@@ -138,20 +138,16 @@ class CartScreen extends StatelessWidget {
                           ),
                           actions: [
                             Center(
-                              // DITO INILAGAY ANG PINALIT NA CODE
                               child: TextButton(
                                 onPressed: () {
-                                  // 1. Gagawa tayo ng notification bago i-clear ang cart
                                   cart.addNotification(
                                     title: 'GEAR CONFIRMED',
                                     message: 'Your order has been placed. We are preparing your Shoes',
                                     icon: Icons.inventory_2_outlined,
                                   );
 
-                                  // 2. Clear ang cart items
                                   cart.clearCart();
-
-                                  // 3. Isara ang dialog
+                                  
                                   Navigator.pop(context);
                                 },
                                 child: const Text(
