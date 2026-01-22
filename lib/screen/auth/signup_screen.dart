@@ -1,5 +1,6 @@
 import 'package:e_commerce/screen/auth/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Import para sa storage
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -11,32 +12,69 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController(); 
   bool _isLoading = false;
 
-  final String username = 'admin';
-  final String password = 'admin123';
+  void signup() async {
+    // 1. Validation: Check kung may blanko
+    if (_usernameController.text.isEmpty || _passwordController.text.isEmpty) {
+      _showErrorSnackBar('Please fill in all fields');
+      return;
+    }
 
-  void login() async {
+    // 2. Validation: Check kung match ang passwords
+    if (_passwordController.text != _confirmPasswordController.text) {
+      _showErrorSnackBar('Passwords do not match');
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
 
-    await Future.delayed(Duration(seconds: 2));
-    setState(() {
-      _isLoading = false;
+    // --- DITO NATIN I-SASHAVE ANG ACCOUNT MO ---
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('saved_username', _usernameController.text);
+    await prefs.setString('saved_password', _passwordController.text);
 
+    // Simulasyon ng network request delay
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+
+      // 3. Success Logic
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Row(
-            children: [
-              Icon(Icons.warning, color: Colors.white),
-              const SizedBox(width: 20),
-              Text('Invalid username or password'),
-            ],
-          ),
+        const SnackBar(
+          content: Text('Account created successfully! Please Sign In.'),
+          backgroundColor: Colors.green,
         ),
       );
-    });
+
+      // Babalik sa Login Screen gamit ang pop o pushReplacement
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const LoginScreen()),
+      );
+    }
+  }
+
+  // Helper function para sa SnackBar error
+  void _showErrorSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.red,
+        content: Row(
+          children: [
+            const Icon(Icons.warning, color: Colors.white),
+            const SizedBox(width: 20),
+            Text(message),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -50,97 +88,57 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                //Image.asset('assets/logo.png',),
-                Image.asset('assets/logo.png', width: 170),
-                Text(
+                Image.asset('adidaslogo.png', width: 170),
+                const Text(
                   "Let's create an account for you",
                   style: TextStyle(fontSize: 15),
                 ),
-
                 const SizedBox(height: 30),
 
-                TextField(
+                // Username Field
+                _buildTextField(
                   controller: _usernameController,
-                  decoration: InputDecoration(
-                    labelText: 'Username',
-                    labelStyle: TextStyle(color: Colors.grey.shade700),
-                    hintText: 'Input username',
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
-                    fillColor: Colors.white,
-                    filled: true,
-                    prefixIcon: Icon(Icons.person),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
+                  label: 'Username',
+                  hint: 'Input username',
+                  icon: Icons.person,
                 ),
 
                 const SizedBox(height: 12),
 
-                TextField(
+                // Password Field
+                _buildTextField(
                   controller: _passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    labelStyle: TextStyle(color: Colors.grey.shade700),
-                    hintText: 'Input password',
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
-                    fillColor: Colors.white,
-                    filled: true,
-                    prefixIcon: Icon(Icons.lock),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
+                  label: 'Password',
+                  hint: 'Input password',
+                  icon: Icons.lock,
+                  isObscure: true,
                 ),
 
                 const SizedBox(height: 12),
 
-                TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Confirm password',
-                    labelStyle: TextStyle(color: Colors.grey.shade700),
-                    hintText: 'Input password',
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
-                    fillColor: Colors.white,
-                    filled: true,
-                    prefixIcon: Icon(Icons.lock),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
+                // Confirm Password Field
+                _buildTextField(
+                  controller: _confirmPasswordController,
+                  label: 'Confirm password',
+                  hint: 'Re-enter password',
+                  icon: Icons.lock_reset,
+                  isObscure: true,
                 ),
 
                 const SizedBox(height: 20),
 
+                // Sign Up Button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: login,
+                    onPressed: _isLoading ? null : signup, 
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurpleAccent,
+                      backgroundColor: Colors.black,
                       foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(vertical: 15),
+                      padding: const EdgeInsets.symmetric(vertical: 15),
                     ),
                     child: _isLoading
-                        ? SizedBox(
+                        ? const SizedBox(
                             width: 24,
                             height: 24,
                             child: CircularProgressIndicator(
@@ -148,31 +146,53 @@ class _SignupScreenState extends State<SignupScreen> {
                               strokeWidth: 2.0,
                             ),
                           )
-                        : Text('Sign Up', style: TextStyle(fontSize: 15)),
+                        : const Text('Sign Up', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                   ),
                 ),
 
-                // if (_errorMessage.isNotEmpty) ...[
-                //   const SizedBox(height: 10),
-                //   Text(_errorMessage, style: TextStyle(color: Colors.red)),
-                // ],
                 const SizedBox(height: 25),
 
+                // Navigation back to Login
                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => LoginScreen()),
-                    );
-                  },
-                  child: Text(
-                    'Sign In',
-                    style: TextStyle(color: Colors.blue, fontSize: 16),
+                  onTap: () => Navigator.pop(context),
+                  child: const Text(
+                    'Already have an account? Sign In',
+                    style: TextStyle(color: Colors.blue, fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required String hint,
+    required IconData icon,
+    bool isObscure = false,
+  }) {
+    return TextField(
+      controller: controller,
+      obscureText: isObscure,
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(color: Colors.grey.shade700),
+        hintText: hint,
+        hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
+        fillColor: Colors.white,
+        filled: true,
+        prefixIcon: Icon(icon),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey.shade300),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey.shade400),
+          borderRadius: BorderRadius.circular(20),
         ),
       ),
     );

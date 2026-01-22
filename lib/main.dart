@@ -19,7 +19,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Add to Cart App',
+      title: 'Adidas',
       theme: ThemeData(useMaterial3: true, primaryColor: Colors.black),
       home: LoginScreen(),
     );

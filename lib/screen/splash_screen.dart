@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen>
               Image.asset('adidaslogo.png', width: 150, height: 150),
               const SizedBox(height: 20),
               const Text(
-                "Loading School Inventory System...",
+                "Loading Adidas System...",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,

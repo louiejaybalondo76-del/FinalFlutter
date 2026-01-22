@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart'; // Mahalaga ito para sa IconData
 import 'package:e_commerce/model/product.dart';
-import 'package:flutter/foundation.dart';
 
 class CartItem {
   final Product product;
@@ -10,8 +10,14 @@ class CartItem {
 
 class CartProvider with ChangeNotifier {
   final Map<String, CartItem> _cartItems = {};
+  
+  // Idinagdag ang listahan para sa notifications
+  final List<Map<String, dynamic>> _notifications = [];
+  List<Map<String, dynamic>> get notifications => _notifications;
 
   Map<String, CartItem> get cartItems => _cartItems;
+
+  // --- CART METHODS ---
 
   void addToCart(Product product) {
     if (_cartItems.containsKey(product.id)) {
@@ -59,8 +65,33 @@ class CartProvider with ChangeNotifier {
     return total;
   }
 
+  // --- NOTIFICATION METHODS ---
+
+  void addNotification({
+    required String title, 
+    required String message, 
+    required IconData icon, // Dito gagamitin ang IconData
+  }) {
+    _notifications.insert(0, {
+      'icon': icon,
+      'title': title,
+      'message': message,
+      'time': 'JUST NOW',
+      'unread': true,
+    });
+    notifyListeners();
+  }
+
   void clearCart() {
     _cartItems.clear();
     notifyListeners();
+  }
+
+  // Idagdag na rin natin ito para ma-clear ang "unread" status
+  void markAsRead(int index) {
+    if (index < _notifications.length) {
+      _notifications[index]['unread'] = false;
+      notifyListeners();
+    }
   }
 }
